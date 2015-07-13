@@ -5,7 +5,6 @@ import android.widget.*;
 
 public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 
-	private static final int EXTRA = 1;
 	private static final int DUMMY_DROPDOWN_VIEW_TYPE_TAG = 1;
 	private final Spinner mSpinner;
 	private T mNothingSelectedDataItem;
@@ -31,7 +30,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 
 	public int getSelectedDataItemPosition() {
 		final int pos = mSpinner.getSelectedItemPosition();
-		return pos == 0 || pos == AdapterView.INVALID_POSITION ? -1 : pos - 1;
+		return pos == 0 || pos == AdapterView.INVALID_POSITION ? AdapterView.INVALID_POSITION : pos - 1;
 	}
 
 	public T getSelectedDataItem() {
@@ -41,7 +40,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 
 	@Override
 	public final View getView(int position, View convertView, ViewGroup parent) {
-		return getViewStaff(position - EXTRA, convertView, parent);
+		return getViewStaff(position == 0 ? AdapterView.INVALID_POSITION : position - 1, convertView, parent);
 	}
 
 	@Override
@@ -50,17 +49,17 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 			convertView = new View(mSpinner.getContext());
 			convertView.setTag(DUMMY_DROPDOWN_VIEW_TYPE_TAG);
 			return convertView;
+		} else {
+			return getDropDownViewStaff(position - 1, convertView, parent);
 		}
-
-		return getDropDownViewStaff(position - EXTRA, convertView, parent);
-	}
-
-	private View getDropDownViewStaff(int position, View convertView, ViewGroup parent) {
-		return getCustomView(android.R.layout.simple_spinner_dropdown_item, position, convertView, parent);
 	}
 
 	private View getViewStaff(int position, View convertView, ViewGroup parent) {
 		return getCustomView(android.R.layout.simple_spinner_item, position, convertView, parent);
+	}
+
+	private View getDropDownViewStaff(int position, View convertView, ViewGroup parent) {
+		return getCustomView(android.R.layout.simple_spinner_dropdown_item, position, convertView, parent);
 	}
 
 	private View getCustomView(int resId, int position, View convertView, ViewGroup parent) {
@@ -68,7 +67,8 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 			convertView = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
 		}
 		final TextView textView = (TextView) convertView;
-		final String text = position == -1 ? mNothingSelectedDataItem == null ? getItemText(0) : getNothingSelectedText(mNothingSelectedDataItem) : getItemText(position);
+		final String text = position == AdapterView.INVALID_POSITION ? mNothingSelectedDataItem == null ? getDataItemText(0) :
+				getNothingSelectedText(mNothingSelectedDataItem) : getDataItemText(position);
 		textView.setText(text);
 		return textView;
 	}
@@ -78,7 +78,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 	 */
 	protected abstract String getNothingSelectedText(T nothingSelectedDataItem);
 
-	protected abstract String getItemText(int position);
+	protected abstract String getDataItemText(int position);
 
 	protected abstract int getDataItemCount();
 
@@ -87,7 +87,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 	@Override
 	public final int getCount() {
 		final int count = getDataItemCount();
-		return count == 0 ? 0 : count + EXTRA;
+		return count == 0 ? 0 : count + 1;
 	}
 
 	@Override
@@ -114,4 +114,3 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 	public boolean isEnabled(int position) {
 		return position != 0; // Don't allow the 'nothing selected' item to be picked
 	}
-}
