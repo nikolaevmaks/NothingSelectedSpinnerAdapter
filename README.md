@@ -14,7 +14,7 @@ private static class DocumentAdapterItem {
 		
 		DocumentAdapterItem(String name, DocumentType documentType) {
 			this.name = name;
-    }
+    		}
 }
 
 
@@ -69,3 +69,4 @@ private class DocumentAdapter extends NothingSelectedSpinnerAdapter<DocumentAdap
 	  
 	  mSpinnerDocument.setAdapter(mDocumentAdapter);
 	}
+}
