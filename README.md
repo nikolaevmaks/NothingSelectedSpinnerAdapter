@@ -8,7 +8,7 @@ NothingSelectedSpinnerAdapter's setSelection allows -1 position index (nothing s
 
 Simple example
 
-
+```java
 private static class DocumentAdapterItem {
 	String name;
 	
@@ -69,4 +69,4 @@ public void onCreate(Bundle savedInstanceState) {
   
   mSpinnerDocument.setAdapter(mDocumentAdapter);
 }
-
+```
