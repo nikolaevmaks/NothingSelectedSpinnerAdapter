@@ -68,6 +68,8 @@ public void onCreate(Bundle savedInstanceState) {
   
   // now "default document number" data item is setted as nothing selected item
   mDocumentAdapter.setSelection(-1);
+  // OR first item in data items is default selected item
+  mDocumentAdapter.setSelection(0);
   
   mSpinnerDocument.setAdapter(mDocumentAdapter);
 }
