@@ -31,13 +31,14 @@ private class DocumentAdapter extends NothingSelectedSpinnerAdapter<DocumentAdap
 		notifyDataSetChanged();
 	}
 
+	// override when only if nothing selected data item required (not simple text)
 	@Override
 	protected String getNothingSelectedText(DocumentAdapterItem nothingSelectedDataItem) {
 		return nothingSelectedDataItem.name;
 	}
-	// when only text as nothing selected item required
+	// override when only text as nothing selected item required
 	@Override
-	protected String getNothingSelectedText(DocumentAdapterItem nothingSelectedDataItem) {
+	protected String getNothingSelectedText() {
 		return "default document number";
 	}
 
