@@ -20,6 +20,9 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 		mSpinner.setSelection(position + 1);
 	}
 
+	/**
+	 * use only if nothing selected data item required (not simple text)
+	 */
 	public void setNothingSelectedDataItem(T nothingSelectedDataItem) {
 		mNothingSelectedDataItem = nothingSelectedDataItem;
 	}
@@ -67,16 +70,24 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 			convertView = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
 		}
 		final TextView textView = (TextView) convertView;
-		final String text = position == AdapterView.INVALID_POSITION ? mNothingSelectedDataItem == null ? getDataItemText(0) :
-				getNothingSelectedText(mNothingSelectedDataItem) : getDataItemText(position);
+		final String text = position == AdapterView.INVALID_POSITION ? getNothingSelectedTextStaff(mNothingSelectedDataItem) == null ? getDataItemText(0) :
+				getNothingSelectedTextStaff(mNothingSelectedDataItem) : getDataItemText(position);
 		textView.setText(text);
 		return textView;
 	}
 
-	/**
-	 * @param nothingSelectedDataItem not null
-	 */
-	protected abstract String getNothingSelectedText(T nothingSelectedDataItem);
+	private String getNothingSelectedTextStaff(T nothingSelectedDataItem) {
+		return nothingSelectedDataItem == null ? getNothingSelectedText() : getNothingSelectedText(nothingSelectedDataItem);
+	}
+
+	// override either getNothingSelectedText
+	protected String getNothingSelectedText(T nothingSelectedDataItem) {
+		return null;
+	}
+
+	protected String getNothingSelectedText() {
+		return null;
+	}
 
 	protected abstract String getDataItemText(int position);
 
@@ -112,5 +123,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 
 	@Override
 	public boolean isEnabled(int position) {
-		return position != 0; // Don't allow the 'nothing selected' item to be picked
+		// Don't allow the 'nothing selected' item to be picked
+		return position != 0;
 	}
+}
