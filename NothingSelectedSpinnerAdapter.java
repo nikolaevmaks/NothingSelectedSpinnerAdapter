@@ -14,7 +14,7 @@ public abstract class NothingSelectedSpinnerAdapter<T> extends BaseAdapter {
 	}
 
 	/**
-	 * @param position position == -1 equals nothing selected
+	 * @param position position == -1 equals nothing selected, 0 - first position in data items
 	 */
 	public void setSelection(int position) {
 		mSpinner.setSelection(position + 1);
