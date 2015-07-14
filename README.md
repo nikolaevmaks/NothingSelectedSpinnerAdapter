@@ -2,7 +2,7 @@
 
 Related StackOverflow question (http://stackoverflow.com/questions/867518/how-to-make-an-android-spinner-with-initial-text-select-one)
 
-How to use
+###How to use
 
 Use NothingSelectedSpinnerAdapter's setSelection instead of setSelection in Spinner.
 NothingSelectedSpinnerAdapter's setSelection allows -1 position index (nothing selected).
