@@ -14,7 +14,7 @@ private static class DocumentAdapterItem {
 	
 	DocumentAdapterItem(String name, DocumentType documentType) {
 		this.name = name;
-    	}
+	}
 }
 
 
