@@ -1,6 +1,5 @@
 # NothingSelectedSpinnerAdapter
 
-
 How to use
 
 Use NothingSelectedSpinnerAdapter's setSelection instead of setSelection in Spinner.
