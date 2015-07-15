@@ -66,7 +66,7 @@ public void onCreate(Bundle savedInstanceState) {
 
   mDocumentAdapter.setNothingSelectedDataItem(new DocumentAdapterItem("default document number");
   
-  // now "default document number" data item is setted as nothing selected item
+  // now "default document number" data item is set as nothing selected item
   mDocumentAdapter.setSelection(-1);
   // OR first item in data items is default selected item
   mDocumentAdapter.setSelection(0);
